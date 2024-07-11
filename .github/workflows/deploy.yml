@@ -1,0 +1,50 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '21'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the app
+      run: npm run build
+
+    - name: Archive production artifacts
+      run: tar -czf site.tar.gz -C dist .
+
+    - name: Copy files via SCP
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        echo "$SSH_PRIVATE_KEY" > private_key
+        chmod 600 private_key
+        scp -o StrictHostKeyChecking=no -i private_key site.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~/site.tar.gz
+
+    - name: Deploy to VPS
+      env:
+        VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+      run: |
+        echo "$VPS_SSH_KEY" > private_key
+        chmod 600 private_key
+        scp -o StrictHostKeyChecking=no -i private_key site.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~/site.tar.gz
+        ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          cd {{ secrets.VPS_APP_FOLDER }}
+          rm -rf *
+          tar -xzf ~/site.tar.gz -C .
+          rm ~/site.tar.gz
+        EOF
