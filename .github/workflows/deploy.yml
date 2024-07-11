@@ -42,4 +42,5 @@ jobs:
           rm -rf *
           tar -xzf ~/site.tar.gz -C .
           rm ~/site.tar.gz
+          sudo systemctl restart nginx
         EOF
