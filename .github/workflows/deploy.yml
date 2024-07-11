@@ -36,8 +36,8 @@ jobs:
       run: |
         echo "$VPS_SSH_KEY" > private_key
         chmod 600 private_key
-        scp -o StrictHostKeyChecking=no -i private_key site.tar.gz $VPS_USER@$VPS_HOST:~/site.tar.gz
-        ssh -o StrictHostKeyChecking=no -i private_key $VPS_USER@$VPS_HOST << 'EOF'
+        scp -o StrictHostKeyChecking=no -i private_key -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa site.tar.gz $VPS_USER@$VPS_HOST:~/site.tar.gz
+        ssh -o StrictHostKeyChecking=no -i private_key -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa $VPS_USER@$VPS_HOST << 'EOF'
           cd ${{ secrets.VPS_APP_FOLDER }}
           rm -rf *
           tar -xzf ~/site.tar.gz -C .
