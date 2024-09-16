@@ -8,8 +8,7 @@ export default {
     ],
     theme: {
         fontFamily: {
-            sans: ['EB Garamond', fontFamily.sans],
-            title: ['Soledago', 'sans-serif'],
+            sans: ['EB Garamond', ...fontFamily.sans],
         },
         extend: {
             colors: {

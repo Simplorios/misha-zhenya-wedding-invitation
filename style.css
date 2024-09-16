@@ -4,11 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: 'Soledago';
-    src: url(/fonts/Soledago.ttf) format('truetype');
-}
-
 @media only screen and (min-width: 600px) {
     html{
         font-size: 20px;
