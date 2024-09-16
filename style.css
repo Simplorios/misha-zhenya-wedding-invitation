@@ -9,6 +9,12 @@
     src: url(/fonts/Soledago.ttf) format('truetype');
 }
 
+@media only screen and (min-width: 600px) {
+    html{
+        font-size: 24px;
+    }
+}
+
 .details {
     counter-reset: li;
     list-style: none;
