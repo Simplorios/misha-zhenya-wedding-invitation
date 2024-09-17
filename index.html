@@ -8,7 +8,10 @@
 </head>
 <body>
 <header class="text-white pb-8">
-    <img src="/img/header.png" alt="header" class="sm:max-w-screen-sm mx-auto w-full">
+    <picture>
+        <source media="(min-width:600px)" srcset="/img/1920.jpg">
+        <img class="sm:max-w-screen-sm mx-auto w-full" src="/img/720.jpg" alt="header">
+    </picture>
     <div class="mx-auto pb-11 flex flex-col items-center justify-center bg-pink">
         <h1 class="-translate-y-7">
             <svg width="288" height="118" viewBox="0 0 288 118" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,7 +104,7 @@
             торжества при выборе нарядов</p>
 
         <div class="grid grid-cols-2 grid-rows-2 gap-2.5 mt-4">
-            <div class="flex items-center bg-pink text-2xl font-medium text-white leading-none pl-4">
+            <div class="flex items-center bg-pink text-2xl font-medium text-white pl-4">
                 No red<br/>
                 No black<br/>
                 Pastel colors
